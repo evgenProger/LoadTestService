@@ -8,9 +8,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Component
 public class Storage {
     @Getter
-    private final CopyOnWriteArrayList<Integer> numbers = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<String> dataJson = new CopyOnWriteArrayList<>();
 
-    public void put(int number) {
-        numbers.add(number);
+    public void put(String data) {
+        dataJson.add(data);
     }
 }

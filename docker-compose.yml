@@ -1,0 +1,41 @@
+version: '3.8'
+
+networks:
+  monitor-net:
+    driver: bridge
+
+services:
+  load:
+    image: loadtestservice:1.0
+    ports:
+      - 8080:8080
+    networks:
+      - monitor-net
+
+
+
+  prometheus:
+
+    user: root
+    image: prom/prometheus:v2.33.5
+    container_name: prometheus
+    hostname: localhost
+    restart: always
+    ports:
+      - 9090:9090
+
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitor-net
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitor-net
+
